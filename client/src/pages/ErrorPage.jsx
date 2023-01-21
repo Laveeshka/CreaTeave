@@ -1,8 +1,10 @@
+import Box from '@mui/material/Box';
+
 function ErrorPage() {
     return (
-        <div>
+        <Box>
             You shall not pass!!
-        </div>
+        </Box>
     )
 }
 

@@ -9,14 +9,18 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./mui/theme";
+import { Provider } from "react-redux";
+import store from "./reducers/store";
 
 ReactDOM.render(
   <BrowserRouter>
-    <ThemeProvider theme={theme}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </ThemeProvider>
+    </Provider>
   </BrowserRouter>,
 
   document.getElementById("root")

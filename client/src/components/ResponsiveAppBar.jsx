@@ -19,7 +19,7 @@ import { NavLink } from "react-router-dom";
 const pages = ["Home", "My Drinks", "Create"];
 //const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function ResponsiveAppBar({ isLoggedIn }) {
+function ResponsiveAppBar({ user }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   //const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -172,7 +172,7 @@ function ResponsiveAppBar({ isLoggedIn }) {
             </Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Button variant="contained">Log In</Button>
+            <Button variant="contained">{ user ? "Log out" : "Log in" }</Button>
           </Box>
         </Toolbar>
       </Container>
