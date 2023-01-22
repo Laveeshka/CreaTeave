@@ -1,12 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// export const fetchMe = createAsyncThunk("user/fetchMe", () => {
-//   // return a Promise containing the data we want
-//   return fetch("/me")
-//     .then((response) => response.json())
-//     .then((data) => console.log(data));
-// });
 
-//refactor using async await
 export const fetchMe = createAsyncThunk("user/fetchMe", 
   async (_, { rejectWithValue }) => {
     try {
@@ -43,6 +36,27 @@ export const loginUser = createAsyncThunk("user/loginUser",
   }
 );
 
+export const signupUser = createAsyncThunk("user/signupUser",
+  async(credentials, { rejectWithValue }) => {
+    try {
+      const res = await fetch("/signup", {
+        method: "POST",
+        headers: {
+          "Accepts": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(credentials)
+      })
+      const data = await res.json();
+      console.log("Data from the sign up request is: ", data);
+      return data;
+    }
+    catch (err) {
+      return rejectWithValue(err.message)
+    }
+  }
+);
+
 export const logoutUser = createAsyncThunk("user/logoutUser", 
   async (_, { rejectWithValue }) => {
     try {
@@ -64,7 +78,8 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     user: null, // user object is set to null initially
-    errors: null, //array of errors from http request
+    errors: [], //array of errors from http request
+    signupErrors: [],
     status: "idle", // loading state
   },
   reducers: {
@@ -96,8 +111,23 @@ const userSlice = createSlice({
     },
     [fetchMe.rejected](state, action) {
       // returns error message from catch block
-    console.log(action.payload) 
+    console.log(action.payload);
   },
+    [signupUser.pending](state) {
+      state.status = "loading";
+    },
+    [signupUser.fulfilled](state, action){
+      if (action.payload.errors) {
+        state.signupErrors = action.payload.errors;
+      } else {
+        state.user = action.payload;
+        state.signupErrors = [];
+      }
+      state.status = "idle";
+    },
+    [signupUser.rejected](state, action) {
+      console.log(action.payload);
+    },
     [loginUser.pending](state) {
       state.status = "loading";
   },

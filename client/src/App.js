@@ -8,7 +8,7 @@ import DrinkDetails from "./components/Drinks/DrinkDetails";
 import { useRoutes } from "react-router-dom";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import Container from "@mui/material/Container";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { theme } from "./mui/theme";
 import { fetchMe } from "./reducers/userSlice";
 import { useDispatch, useSelector } from "react-redux";
