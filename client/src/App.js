@@ -15,11 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from '@mui/material/CircularProgress';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  let user = useSelector((state) => state.user.user);
   let loading = useSelector((state) => state.user.status);
-
   const dispatch = useDispatch();
 
   //check whether the user is logged in for authorization
@@ -52,12 +49,13 @@ function App() {
 
   return (
     <div className="App" style={{ backgroundColor: theme.palette.secondary.main, height: "100vh" }}>
-      <ResponsiveAppBar user={user} />
+      <ResponsiveAppBar />
       <Container
         fixed
         sx={{ p: 2, height: "100%" }}
       >
-        { loading === "loading" ? <CircularProgress /> : routes }
+        { loading === "loading" ? <CircularProgress /> : null }
+        {routes}
       </Container>
     </div>
   );

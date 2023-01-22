@@ -7,36 +7,41 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import LocalDrinkIcon from '@mui/icons-material/LocalDrink';
 import { theme } from "../mui/theme";
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../reducers/userSlice";
 
-const pages = ["Home", "My Drinks", "Create"];
-//const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+function ResponsiveAppBar() {
 
-function ResponsiveAppBar({ user }) {
+  let user = useSelector((state) => state.user.user);
+  let navigate = useNavigate();
+  let dispatch = useDispatch();
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  //const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  //   const handleOpenUserMenu = (event) => {
-  //     setAnchorElUser(event.currentTarget);
-  //   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  //   const handleCloseUserMenu = () => {
-  //     setAnchorElUser(null);
-  //   };
+  const handleLogInClick = (e) => {
+    console.log(e.target.innerText);
+    if (e.target.innerText === "LOG IN"){
+      navigate("/login");
+    }
+    else {
+      dispatch(logoutUser());
+      navigate("/");
+    }
+  }
 
   const activeStyle = {
     textDecoration: "none", 
@@ -172,7 +177,7 @@ function ResponsiveAppBar({ user }) {
             </Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Button variant="contained">{ user ? "Log out" : "Log in" }</Button>
+            <Button variant="contained" onClick={handleLogInClick} id="log-in">{ user ? "Log out" : "Log in" }</Button>
           </Box>
         </Toolbar>
       </Container>
