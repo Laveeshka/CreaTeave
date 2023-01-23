@@ -12,7 +12,8 @@ class DrinkToppingsController < ApplicationController
     end
 
     def create
-        drink_topping = DrinkTopping.create!(drink_topping_params)
+        topping_id = Topping.find_by(name: params[:topping_name])
+        drink_topping = DrinkTopping.create!(params[:drink_id], topping_id)
         render json: drink_topping, status: :created
     end
 
@@ -32,7 +33,7 @@ class DrinkToppingsController < ApplicationController
     private
 
     def drink_topping_params
-        params.permit(:drink_id, :topping_id)
+        params.permit(:drink_id, :topping_id, :topping_name)
     end
 
 end

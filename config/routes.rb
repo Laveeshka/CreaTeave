@@ -12,4 +12,6 @@ Rails.application.routes.draw do
 
   resources :drinks
   resources :drink_toppings
+  resources :toppings, only: [:index]
+  resources :tea_ranges, only: [:index]
 end

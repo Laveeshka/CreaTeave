@@ -11,6 +11,7 @@ import Container from "@mui/material/Container";
 import { useEffect } from "react";
 import { theme } from "./mui/theme";
 import { fetchMe } from "./reducers/userSlice";
+import { getToppings, getTeaRanges } from "./reducers/drinksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -23,13 +24,30 @@ function App() {
   //while checking, set a circular progress
   //if user is not logged in, set re-direct the user to the login page
   useEffect(() => {
-    try {
-      dispatch(fetchMe());
+    const fetchUser = async () => {
+      const result = await dispatch(fetchMe());
     }
-    catch(err){
-      console.log(err);
+    const fetchToppings = async () => {
+      const result = await dispatch(getToppings());
     }
+    const fetchTeaRanges = async () => {
+      const result = await dispatch(getTeaRanges());
+    }
+
+    const fetchUserResult = fetchUser()
+      .catch(console.error);
+
+      const fetchToppingsResult = fetchToppings().catch(console.error);
+      const fetchTeaRangesResult = fetchTeaRanges().catch(console.error);
+    // try {
+    //   dispatch(fetchMe());
+    // }
+    // catch(err){
+    //   console.log(err);
+    // }
   }, [dispatch]);
+
+  
 
   let routes = useRoutes([
     //These are the same as the props you provide to <Route>
