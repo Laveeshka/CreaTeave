@@ -29,8 +29,8 @@ t8 = Topping.create(name: "Oreo")
 t9 = Topping.create(name: "Raspberry Popping Pearls")
 
 puts "🌱 Seeding users... 🌱"
-u1 = User.create(username: "Ellie", password_digest:"123")
-u2 = User.create(username: "Emma", password_digest:"456")
+u1 = User.create(username: "Ellie", password:"123", password_confirmation:"123")
+u2 = User.create(username: "Emma", password:"456", password_confirmation:"456")
 
 puts "🌱 Seeding drinks... 🌱"
 d1 = Drink.create(user: u1, tea_range: tr1, name: "tropical sippy", flavour: "Mango", ice_level: 0.5, sweetness_level: 0.5)

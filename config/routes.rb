@@ -9,4 +9,7 @@ Rails.application.routes.draw do
   get "/me", to: "users#show" #for auto-login
   post "/login", to: "sessions#create" #for login
   delete "/logout", to: "sessions#destroy" #for logout
+
+  resources :drinks
+  resources :drink_toppings
 end
