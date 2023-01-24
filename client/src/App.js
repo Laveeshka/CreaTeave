@@ -4,7 +4,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
-import DrinkDetails from "./components/Drinks/DrinkDetails";
+//import DrinkDetails from "./components/Drinks/DrinkDetails";
 import { useRoutes } from "react-router-dom";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import Container from "@mui/material/Container";
@@ -59,7 +59,7 @@ function App() {
       path: "/my-drinks",
       element: <MyDrinks />,
       //Nested routes use a children property
-      children: [{ path: ":drinkId", element: <DrinkDetails /> }],
+      //children: [{ path: ":drinkId", element: <DrinkDetails /> }],
     },
     { path: "/create", element: <CreateDrink /> },
     { path: "*", element: <ErrorPage /> },

@@ -10,7 +10,7 @@ class DrinkTopping < ApplicationRecord
 
     def not_more_than_three_toppings_per_drink
         num = DrinkTopping.where(drink_id: drink_id).count
-        unless num < 3
+        unless num <= 3
             errors.add(:topping_id, "A drink cannot have more than 3 toppings!")
         end
       end

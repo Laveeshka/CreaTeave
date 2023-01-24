@@ -39,7 +39,7 @@ class Drink < ApplicationRecord
   #write a custom validation so that we cannot assign more than 3 toppings to a drink
   def not_more_than_three_toppings_per_drink
     drink_toppings_count = self.drink_toppings.count
-    unless drink_toppings_count < 3
+    unless drink_toppings_count <= 3
         errors.add(:drink_toppings, "A drink cannot have more than 3 toppings!")
     end
   end
