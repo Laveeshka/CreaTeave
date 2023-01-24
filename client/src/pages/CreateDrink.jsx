@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -13,15 +13,21 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
+import Slider from '@mui/material/Slider';
+import TextField from '@mui/material/TextField';
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import { theme } from "../mui/theme";
 import { flavoursObj } from "../constants/flavours";
+import { iceLevelMarks } from "../constants/iceLevelMarks";
+import { sweetnessLevelMarks } from "../constants/sweetnessLevelMarks";
+import { postDrink } from "../reducers/drinksSlice";
 
 function CreateDrink() {
 
 
   let user = useSelector((state) => state.user.user);
+  let dispatch = useDispatch();
   const teaRanges = useSelector((state) => state.drinks.teaRanges);
   const teaRangeNames = teaRanges.map((teaRange) => teaRange.name);
   const formControlLabels = teaRangeNames.map((teaRangeName) => (
@@ -38,6 +44,9 @@ function CreateDrink() {
   const [teaRange, setTeaRange] = useState(teaRangeNames[0]);
   const [flavours, setFlavours] = useState(flavoursObj[teaRangeNames[0]]);
   const [flavour, setFlavour] = useState("");
+  const [iceLevel, setIceLevel] = useState(100);
+  const [sweetnessLevel, setSweetnessLevel] = useState(100);
+  const [drinkName, setDrinkName] = useState("");
   let flavourMenuItems = flavours.map((flavour) => <MenuItem key={flavour} value={flavour}>{flavour}</MenuItem>)
 
 
@@ -45,9 +54,22 @@ function CreateDrink() {
   //replace text by form creation
   if (!user) return <Navigate replace to="/login" />;
 
+  function iceValueLabelFormat(value) {
+    return iceLevelMarks.findIndex((mark) => mark.value === value) + 1;
+  }
+
+  function sweetnessValueLabelFormat(value) {
+    return sweetnessLevelMarks.findIndex((mark) => mark.value === value) + 1;
+  }
+
   const handleCreateDrinkSubmit = (e) => {
     e.preventDefault();
     console.log("handleCreateDrinkSubmit was clicked");
+    console.log("Drink details before post: ", {drinkName, teaRange, flavour, iceLevel, sweetnessLevel});
+    const teaRangeObj = teaRanges.find((val) => val.name === teaRange)
+    console.log(teaRangeObj)
+    const newDrink = {name: drinkName, tea_range_id: teaRangeObj.id, flavour, ice_level: iceLevel, sweetness_level: sweetnessLevel};
+    dispatch(postDrink(newDrink));
   };
 
   return (
@@ -111,22 +133,75 @@ function CreateDrink() {
             </CardActions>
           </Card>
         </Grid>
-        <Grid item xs={6} md={12}>
-          <Card variant="outlined">
-            <CardContent></CardContent>
-            <CardActions></CardActions>
+        <Grid item xs={12} md={6}>
+          <Card sx={{backgroundColor: theme.palette.secondary.dark}}>
+            <CardContent>
+            <Typography variant="subtitle2" component="span">
+                Step 3{")"}{" "}
+              </Typography>
+              <Typography variant="subtitle1" component="span">
+                {" "}
+                Choose ice level
+              </Typography>
+            </CardContent>
+            <CardActions >
+                <FormControl sx={{width: "80%", margin: "auto"}}>
+                <Slider 
+                        value={iceLevel}
+                        onChange={(e, newVal) => setIceLevel(newVal)}
+                        valueLabelFormat={iceValueLabelFormat}
+                        step={null}
+                        marks={iceLevelMarks}
+                    />
+                </FormControl>            
+            </CardActions>
           </Card>
         </Grid>
-        <Grid item xs={6} md={12}>
-          <Card variant="outlined">
-            <CardContent></CardContent>
-            <CardActions></CardActions>
+        <Grid item xs={12} md={6}>
+          <Card sx={{backgroundColor: theme.palette.secondary.dark}}>
+            <CardContent>
+            <Typography variant="subtitle2" component="span">
+                Step 4{")"}{" "}
+              </Typography>
+              <Typography variant="subtitle1" component="span">
+                {" "}
+                Choose sweetness level
+              </Typography>
+            </CardContent>
+            <CardActions>
+            <FormControl sx={{width: "80%", margin: "auto"}}>
+                <Slider 
+                        value={sweetnessLevel}
+                        onChange={(e, newVal) => setSweetnessLevel(newVal)}
+                        valueLabelFormat={sweetnessValueLabelFormat}
+                        step={null}
+                        marks={sweetnessLevelMarks}
+                    />
+                </FormControl>    
+            </CardActions>
           </Card>
         </Grid>
         <Grid item xs={12}>
-          <Card variant="outlined">
-            <CardContent></CardContent>
-            <CardActions></CardActions>
+          <Card sx={{backgroundColor: theme.palette.secondary.dark}}>
+            <CardContent>
+            <Typography variant="subtitle2" component="span">
+                Step 5{")"}{" "}
+              </Typography>
+              <Typography variant="subtitle1" component="span">
+                {" "}
+                Name your drink
+              </Typography>
+            </CardContent>
+            <CardActions>
+                <TextField 
+                fullWidth
+                required
+                id="filled-name"
+                label="Name"
+                value={drinkName}
+                onChange={(e) => setDrinkName(e.target.value)}
+                />
+            </CardActions>
           </Card>
         </Grid>
         <Grid item xs={12}>

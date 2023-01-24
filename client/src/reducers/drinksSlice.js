@@ -70,6 +70,7 @@ const drinksSlice = createSlice({
     name: "drinks",
     initialState: {
         drinksArray: [],
+        newDrink: null,
         status: "idle",
         errors: [],
         toppings: [],
@@ -107,6 +108,23 @@ const drinksSlice = createSlice({
               state.status = "idle";
         },
         [getTeaRanges.rejected](state, action){
+            console.log(action.payload)
+        },
+        [postDrink.pending](state){
+            state.newDrink = null;
+            state.status = "loading"
+        },
+        [postDrink.fulfilled](state, action){
+            if (action.payload.errors) {
+                state.errors = action.payload.errors;
+            } else {
+                state.newDrink = action.payload;
+                console.log("New drink is: ", state.newDrink)
+                state.errors = [];
+            }
+            state.statu = "loading"
+        },
+        [postDrink.rejected](state, action){
             console.log(action.payload)
         }
     }

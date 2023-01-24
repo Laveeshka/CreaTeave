@@ -9,8 +9,8 @@ class Drink < ApplicationRecord
   validates :name, presence: true
   validates :user_id, presence: true
   validates :tea_range_id, presence: true
-  validates :ice_level, numericality: true, inclusion: {in: [0, 0.5, 1]}
-  validates :sweetness_level, numericality: true, inclusion: {in: [0, 0.25, 0.5, 0.75, 1]}
+  validates :ice_level, numericality: true, inclusion: {in: [0, 50, 100]}
+  validates :sweetness_level, numericality: true, inclusion: {in: [0, 25, 50, 75, 100]}
   validate :flavour_must_fall_within_list_according_to_tea_range
   validate :not_more_than_three_toppings_per_drink
 

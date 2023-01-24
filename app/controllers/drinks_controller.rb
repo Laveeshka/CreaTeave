@@ -3,7 +3,8 @@ class DrinksController < ApplicationController
 
     def create
         user = User.find_by(id: session[:user_id])
-        drink = user.drinks.create!(drink_params)
+        tea_range = TeaRange.find_by(id: params[:tea_range_id])
+        drink = Drink.create!(user: user, tea_range: tea_range, name: params[:name], flavour: params[:flavour], ice_level: params[:ice_level], sweetness_level: params[:sweetness_level])
         render json: drink, status: :created
     end
 

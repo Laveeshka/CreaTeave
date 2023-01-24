@@ -17,7 +17,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 function App() {
 
-  let loading = useSelector((state) => state.user.status);
+  let status = useSelector((state) => state.user.status);
   const dispatch = useDispatch();
 
   //check whether the user is logged in for authorization
@@ -45,7 +45,7 @@ function App() {
     // catch(err){
     //   console.log(err);
     // }
-  }, [dispatch]);
+  }, []);
 
   
 
@@ -66,13 +66,13 @@ function App() {
   ]);
 
   return (
-    <div className="App" style={{ backgroundColor: theme.palette.secondary.main, height: "100vh" }}>
+    <div className="App" style={{ backgroundColor: theme.palette.secondary.main, height: "100vh", overflow:"scroll" }}>
       <ResponsiveAppBar />
       <Container
         fixed
         sx={{ p: 2, height: "100%" }}
       >
-        { loading === "loading" ? <CircularProgress /> : null }
+        {/* { status === "loading" ? <CircularProgress /> : null } */}
         {routes}
       </Container>
     </div>
