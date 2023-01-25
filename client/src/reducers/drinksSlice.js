@@ -65,6 +65,21 @@ export const postDrink = createAsyncThunk("drinks/postDrink",
     }
 );
 
+export const deleteDrink = createAsyncThunk("drinks/deleteDrink", 
+    async (drink, { rejectWithValue }) => {
+        try {
+            await fetch(`/drinks/${drink.id}`, {
+                method: "DELETE"
+            })
+            console.log("delete request fired");
+            return drink;
+        }
+        catch(err) {
+            return rejectWithValue(err.message);
+        }
+    }
+);
+
 //the drinksArray state will hold all the drinks belonging to the logged in user
 const drinksSlice = createSlice({
     name: "drinks",
@@ -108,7 +123,8 @@ const drinksSlice = createSlice({
               state.status = "idle";
         },
         [getTeaRanges.rejected](state, action){
-            console.log(action.payload)
+            console.log(action.payload);
+            state.status = "idle";
         },
         [postDrink.pending](state){
             state.newDrink = null;
@@ -118,14 +134,16 @@ const drinksSlice = createSlice({
             if (action.payload.errors) {
                 state.errors = action.payload.errors;
             } else {
-                state.newDrink = action.payload;
-                console.log("New drink is: ", state.newDrink)
+                state.newDrink = null;
+                // state.newDrink = action.payload;
+                // console.log("New drink is: ", state.newDrink)
                 state.errors = [];
             }
-            state.statu = "loading"
+            state.status = "idle"
         },
         [postDrink.rejected](state, action){
-            console.log(action.payload)
+            console.log(action.payload);
+            state.status = "idle";
         },
         [getDrinks.pending](state){
             //state.drinksArray = [];
@@ -138,9 +156,25 @@ const drinksSlice = createSlice({
                 state.drinksArray = action.payload;
                 state.errors = [];
             }
+            state.status = "idle";
         },
         [getDrinks.rejected](state, action){
-            console.log(action.payload)
+            console.log(action.payload);
+            state.status = "idle";
+        },
+        [deleteDrink.pending](state){
+            state.status = "loading";
+        },
+        [deleteDrink.fulfilled](state, action){
+            console.log("action payload is: ", action.payload)
+            const index = state.drinksArray.findIndex((drink) => drink === action.payload.id);
+            state.drinksArray.splice(index, 1);
+            //state.drinksArray = state.drinksArray.filter(drink => drink !== action.payload);
+            state.status = "idle";
+        },
+        [deleteDrink.rejected](state, action){
+            console.log(action.payload);
+            state.status = "idle";
         }
     }
 });

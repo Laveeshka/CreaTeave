@@ -23,7 +23,7 @@ class DrinkToppingsController < ApplicationController
         render json: updated_drink_topping, status: :accepted
     end
 
-    def delete
+    def destroy
         drink_topping = DrinkTopping.find_by(id: params[:id])
         drink_topping.destroy
         head :no_content

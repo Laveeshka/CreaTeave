@@ -19,10 +19,11 @@ class DrinksController < ApplicationController
         render json: drink, status: :ok
     end
 
-    def delete
+    def destroy
         drink = Drink.find_by(id: params[:id])
         drink.destroy
-        head :no_content
+        # head :no_content
+        render json: {message: "Successfully deleted drink"}, status: :ok
     end
 
     def update

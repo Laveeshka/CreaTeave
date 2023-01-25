@@ -10,6 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { theme } from "../mui/theme";
+import DrinkCard from "../components/DrinkCard";
 
 function MyDrinks() {
   let user = useSelector((state) => state.user.user);
@@ -36,23 +37,7 @@ function MyDrinks() {
       >
         {drinks.map((drink, index) => (
           <Grid item xs={2} sm={4} md={4} key={index}>
-            <Card sx={{backgroundColor: theme.palette.secondary.dark}}>
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {drink.name}
-                </Typography>
-                <Typography variant="body2" component="div">
-                 {drink.tea_range.name} 
-                </Typography>
-                <Typography variant="body2" component="div">
-                 {drink.flavour} 
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button variant="contained" size="small">Edit</Button>
-                <Button variant="contained" size="small">Delete</Button>
-              </CardActions>
-            </Card>
+            <DrinkCard drink={drink}/>
           </Grid>
         ))}
       </Grid>
