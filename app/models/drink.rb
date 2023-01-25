@@ -17,7 +17,7 @@ class Drink < ApplicationRecord
   def flavour_must_fall_within_list_according_to_tea_range
     acceptable_flavours = flavours(self.tea_range.name) #returns array of permissible flavours
     unless acceptable_flavours.any?(flavour)
-      errors.add(:flavour, "Flavour is not part of the acceptable range, #{acceptable_flavours}")
+      errors.add(:flavour, "is not part of the acceptable range, #{acceptable_flavours}")
     end
   end
 

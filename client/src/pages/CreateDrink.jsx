@@ -15,6 +15,8 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import { theme } from "../mui/theme";
@@ -49,7 +51,11 @@ function CreateDrink() {
   const [drinkName, setDrinkName] = useState("");
   let flavourMenuItems = flavours.map((flavour) => <MenuItem key={flavour} value={flavour}>{flavour}</MenuItem>)
 
+  const errors = useSelector((state) => state.drinks.errors);
 
+  const errorListItems = errors.map((error) => (
+    <ListItem key={error} >{error}</ListItem>
+  ));
   //if user does not exist (not logged in), re-direct the user to the login path
   //replace text by form creation
   if (!user) return <Navigate replace to="/login" />;
@@ -72,9 +78,11 @@ function CreateDrink() {
     dispatch(postDrink(newDrink));
   };
 
+
   return (
     <Box>
       <Typography align="center">Time to start createa-ng!</Typography>
+      <List>{errorListItems}</List>
       <Grid
         component="form"
         container

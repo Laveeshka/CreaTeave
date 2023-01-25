@@ -27,16 +27,5 @@ export const store = configureStore({
   middleware: [thunk]
 })
 
-// const persistedUserReducer = persistReducer(persistConfig, userReducer)
-// const persistedDrinksReducer = persistReducer(persistConfig, drinksReducer)
-
-
-// export const store = configureStore({
-//   reducer: {
-//     user: persistedUserReducer,
-//     drinks: persistedDrinksReducer,
-//     middleware: [thunk]
-//   },
-// });
 
 export const persistor = persistStore(store)
