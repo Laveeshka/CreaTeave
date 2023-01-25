@@ -126,6 +126,21 @@ const drinksSlice = createSlice({
         },
         [postDrink.rejected](state, action){
             console.log(action.payload)
+        },
+        [getDrinks.pending](state){
+            //state.drinksArray = [];
+            state.status = "loading"
+        },
+        [getDrinks.fulfilled](state, action){
+            if (action.payload.errors) {
+                state.errors = action.payload.errors;
+            } else {
+                state.drinksArray = action.payload;
+                state.errors = [];
+            }
+        },
+        [getDrinks.rejected](state, action){
+            console.log(action.payload)
         }
     }
 });

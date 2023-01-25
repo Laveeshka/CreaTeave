@@ -14,6 +14,7 @@ import { fetchMe } from "./reducers/userSlice";
 import { getToppings, getTeaRanges } from "./reducers/drinksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from '@mui/material/CircularProgress';
+import { getDrinks } from "./reducers/drinksSlice";
 
 function App() {
 
@@ -39,6 +40,10 @@ function App() {
 
       const fetchToppingsResult = fetchToppings().catch(console.error);
       const fetchTeaRangesResult = fetchTeaRanges().catch(console.error);
+
+      
+
+      
     // try {
     //   dispatch(fetchMe());
     // }
