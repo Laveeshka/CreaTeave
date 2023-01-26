@@ -25,6 +25,9 @@ import { iceLevelMarks } from "../../constants/iceLevelMarks";
 import { sweetnessLevelMarks } from "../../constants/sweetnessLevelMarks";
 import { useParams } from "react-router-dom";
 import { updateDrink } from "../../reducers/drinksSlice";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function EditDrink() {
 
     const { id } = useParams();
@@ -71,7 +74,7 @@ function EditDrink() {
     return sweetnessLevelMarks.findIndex((mark) => mark.value === value) + 1;
   }
 
-  const handleUpdateDrinkSubmit = (e) => {
+  const handleUpdateDrinkSubmit = async (e) => {
     e.preventDefault();
     console.log("handleUpdateDrinkSubmit was clicked");
     const teaRangeObj = teaRanges.find((val) => val.name === teaRange)
@@ -80,7 +83,12 @@ function EditDrink() {
     console.log("Drink details before patch: ", updatedDrink);
 
     try {
-        dispatch(updateDrink(updatedDrink))
+        const result = await dispatch(updateDrink(updatedDrink))
+      if(updateDrink.fulfilled.match(result)){
+        toast.success('Success Notification !', {
+            position: toast.POSITION.BOTTOM_CENTER
+        });
+      }
     }
     catch(err){
         console.warn(err)
@@ -232,6 +240,7 @@ function EditDrink() {
           </Button>
         </Grid>
       </Grid>
+      <ToastContainer />
     </Box>
   );
 }
