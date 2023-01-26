@@ -4,8 +4,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
-//import DrinkDetails from "./components/Drinks/DrinkDetails";
 import { useRoutes } from "react-router-dom";
+import { Outlet } from 'react-router-dom'
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import Container from "@mui/material/Container";
 import { useEffect } from "react";
@@ -14,11 +14,10 @@ import { fetchMe } from "./reducers/userSlice";
 import { getToppings, getTeaRanges } from "./reducers/drinksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from '@mui/material/CircularProgress';
-import { getDrinks } from "./reducers/drinksSlice";
-
+import EditDrink from "./components/drinks/EditDrink";
+import DrinksList from "./components/drinks/DrinksList";
 function App() {
 
-  let status = useSelector((state) => state.user.status);
   const dispatch = useDispatch();
 
   //check whether the user is logged in for authorization
@@ -61,10 +60,9 @@ function App() {
     { path: "/login", element: <Login /> },
     { path: "/signup", element: <Signup /> },
     {
-      path: "/my-drinks",
-      element: <MyDrinks />,
+      path: "/my-drinks", element: <><MyDrinks /> <Outlet/></>,
       //Nested routes use a children property
-      //children: [{ path: ":drinkId", element: <DrinkDetails /> }],
+      children: [{ path: ":id", element: <EditDrink/>}, {path: "", element: <DrinksList/>}],
     },
     { path: "/create", element: <CreateDrink /> },
     { path: "*", element: <ErrorPage /> },
@@ -77,7 +75,6 @@ function App() {
         fixed
         sx={{ p: 2, height: "100%" }}
       >
-        {/* { status === "loading" ? <CircularProgress /> : null } */}
         {routes}
       </Container>
     </div>

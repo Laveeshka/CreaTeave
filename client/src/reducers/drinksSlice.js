@@ -6,7 +6,7 @@ export const getDrinks = createAsyncThunk("drinks/getDrinks",
         try {
             const res = await fetch("/drinks");
             const data = await res.json();
-            console.log("data from fetch drinks request is: ", data);
+            console.log("data from GET drinks request is: ", data);
             return data;
         }
         catch(err) {
@@ -20,7 +20,7 @@ export const getToppings = createAsyncThunk("drinks/getToppings",
         try {
             const res = await fetch("/toppings");
             const data = await res.json();
-            console.log("data from get toppings request is: ", data);
+            console.log("data from GET toppings request is: ", data);
             return data;
         }
         catch(err) {
@@ -34,7 +34,7 @@ export const getTeaRanges = createAsyncThunk("drinks/getTeaRanges",
         try {
             const res = await fetch("/tea_ranges");
             const data = await res.json();
-            console.log("data from get tea ranges request is: ", data);
+            console.log("data from GET tea ranges request is: ", data);
             return data;
         }
         catch(err) {
@@ -56,7 +56,7 @@ export const postDrink = createAsyncThunk("drinks/postDrink",
                 body: JSON.stringify(newDrink)
             })
             const data = await res.json();
-            console.log("data from fetch drinks request is: ", data)
+            console.log("data from POST drinks request is: ", data)
             return data;
         }
         catch(err) {
@@ -71,8 +71,30 @@ export const deleteDrink = createAsyncThunk("drinks/deleteDrink",
             await fetch(`/drinks/${drink.id}`, {
                 method: "DELETE"
             })
-            console.log("delete request fired");
+            console.log("DELETE request fired");
             return drink;
+        }
+        catch(err) {
+            return rejectWithValue(err.message);
+        }
+    }
+);
+
+//action for updating a drink for the logged in user
+export const updatetDrink = createAsyncThunk("drinks/updateDrink",
+    async (updatedDrink, { rejectWithValue }) => {
+        try {
+            const res = await fetch(`/drinks/${updatedDrink.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Accepts": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedDrink)
+            })
+            const data = await res.json();
+            console.log("data from patch drinks request is: ", data)
+            return data;
         }
         catch(err) {
             return rejectWithValue(err.message);
@@ -175,7 +197,8 @@ const drinksSlice = createSlice({
         [deleteDrink.rejected](state, action){
             console.log(action.payload);
             state.status = "idle";
-        }
+        },
+        
     }
 });
 

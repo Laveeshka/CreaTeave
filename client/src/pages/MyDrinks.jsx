@@ -10,7 +10,8 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { theme } from "../mui/theme";
-import DrinkCard from "../components/DrinkCard";
+import DrinkCard from "../components/drinks/DrinkCard";
+import DrinksList from "../components/drinks/DrinksList";
 
 function MyDrinks() {
   let user = useSelector((state) => state.user.user);
@@ -29,8 +30,9 @@ function MyDrinks() {
   if (!user) return <Navigate replace to="/login" />;
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid
+    <Box>
+      {/* <DrinksList drinks={drinks}/> */}
+      {/* <Grid
         container
         spacing={{ xs: 2, md: 4 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
@@ -40,7 +42,8 @@ function MyDrinks() {
             <DrinkCard drink={drink}/>
           </Grid>
         ))}
-      </Grid>
+      </Grid> */}
+      
     </Box>
   );
 }
