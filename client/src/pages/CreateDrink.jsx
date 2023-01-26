@@ -17,19 +17,22 @@ import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { theme } from "../mui/theme";
 import { flavoursObj } from "../constants/flavours";
 import { iceLevelMarks } from "../constants/iceLevelMarks";
 import { sweetnessLevelMarks } from "../constants/sweetnessLevelMarks";
 import { postDrink } from "../reducers/drinksSlice";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CreateDrink() {
 
 
   let user = useSelector((state) => state.user.user);
   let dispatch = useDispatch();
+  const navigate = useNavigate();
   const teaRanges = useSelector((state) => state.drinks.teaRanges);
   const teaRangeNames = teaRanges.map((teaRange) => teaRange.name);
   const formControlLabels = teaRangeNames.map((teaRangeName) => (
@@ -68,14 +71,33 @@ function CreateDrink() {
     return sweetnessLevelMarks.findIndex((mark) => mark.value === value) + 1;
   }
 
-  const handleCreateDrinkSubmit = (e) => {
+  const showToastMessage = (msg) => {
+    toast.success(msg, {
+        position: toast.POSITION.BOTTOM_CENTER
+    })}
+
+  const handleCreateDrinkSubmit = async (e) => {
     e.preventDefault();
     console.log("handleCreateDrinkSubmit was clicked");
     console.log("Drink details before post: ", {drinkName, teaRange, flavour, iceLevel, sweetnessLevel});
     const teaRangeObj = teaRanges.find((val) => val.name === teaRange)
     console.log(teaRangeObj)
     const newDrink = {name: drinkName, tea_range_id: teaRangeObj.id, flavour, ice_level: iceLevel, sweetness_level: sweetnessLevel};
-    dispatch(postDrink(newDrink));
+    //dispatch(postDrink(newDrink));
+    try {
+      const result = await dispatch(postDrink(newDrink))
+      //console.log("result is: ", result)
+    if(result.payload.id){
+      showToastMessage('Drink successfully created!');
+      setTimeout(() => navigate("/my-drinks"), 3000);
+    } else {
+      toast.error('An error occured!', {
+          position: toast.POSITION.BOTTOM_CENTER
+      });
+  }}
+  catch(err){
+      console.warn(err)
+  }
   };
 
 
@@ -223,6 +245,7 @@ function CreateDrink() {
           </Button>
         </Grid>
       </Grid>
+      <ToastContainer />
     </Box>
   );
 }

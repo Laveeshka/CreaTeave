@@ -17,7 +17,7 @@ import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { theme } from "../../mui/theme";
 import { flavoursObj } from "../../constants/flavours";
@@ -37,6 +37,7 @@ function EditDrink() {
 
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const teaRanges = useSelector((state) => state.drinks.teaRanges);
   const teaRangeNames = teaRanges.map((teaRange) => teaRange.name);
   const formControlLabels = teaRangeNames.map((teaRangeName) => (
@@ -73,23 +74,29 @@ function EditDrink() {
   function sweetnessValueLabelFormat(value) {
     return sweetnessLevelMarks.findIndex((mark) => mark.value === value) + 1;
   }
+  const showToastMessage = (msg) => {
+    toast.success(msg, {
+        position: toast.POSITION.BOTTOM_CENTER
+    })}
 
   const handleUpdateDrinkSubmit = async (e) => {
     e.preventDefault();
     console.log("handleUpdateDrinkSubmit was clicked");
     const teaRangeObj = teaRanges.find((val) => val.name === teaRange)
-    //console.log(teaRangeObj)
     const updatedDrink = {id: drink.id, name: drinkName, tea_range_id: teaRangeObj.id, flavour, ice_level: iceLevel, sweetness_level: sweetnessLevel};
     console.log("Drink details before patch: ", updatedDrink);
 
     try {
         const result = await dispatch(updateDrink(updatedDrink))
-      if(updateDrink.fulfilled.match(result)){
-        toast.success('Success Notification !', {
+        console.log("result is: ", result)
+      if(result.payload.id){
+        showToastMessage('Drink successfully edited!');
+        setTimeout(() => navigate("/my-drinks"), 3000);
+      } else {
+        toast.error('An error occured!', {
             position: toast.POSITION.BOTTOM_CENTER
         });
-      }
-    }
+    }}
     catch(err){
         console.warn(err)
     }
