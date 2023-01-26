@@ -81,7 +81,7 @@ export const deleteDrink = createAsyncThunk("drinks/deleteDrink",
 );
 
 //action for updating a drink for the logged in user
-export const updatetDrink = createAsyncThunk("drinks/updateDrink",
+export const updateDrink = createAsyncThunk("drinks/updateDrink",
     async (updatedDrink, { rejectWithValue }) => {
         try {
             const res = await fetch(`/drinks/${updatedDrink.id}`, {
@@ -198,6 +198,28 @@ const drinksSlice = createSlice({
             console.log(action.payload);
             state.status = "idle";
         },
+        [updateDrink.pending](state){
+            state.status = "loading"
+        },
+        [updateDrink.fulfilled](state, action){
+            if (action.payload.errors) {
+                state.errors = action.payload.errors;
+            } else {
+                state.errors = [];
+                state.drinksArray = state.drinksArray.map((drink) => {
+                    if (drink.id === action.payload.id ){
+                        return action.payload
+                    } else {
+                        return drink;
+                    }
+                })
+            }
+            state.status = "idle"
+        },
+        [updateDrink.rejected](state, action){
+            console.log(action.payload);
+            state.status = "idle";
+        }
         
     }
 });

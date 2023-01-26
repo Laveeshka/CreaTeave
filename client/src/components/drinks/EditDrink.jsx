@@ -24,17 +24,16 @@ import { flavoursObj } from "../../constants/flavours";
 import { iceLevelMarks } from "../../constants/iceLevelMarks";
 import { sweetnessLevelMarks } from "../../constants/sweetnessLevelMarks";
 import { useParams } from "react-router-dom";
-
-
+import { updateDrink } from "../../reducers/drinksSlice";
 function EditDrink() {
 
     const { id } = useParams();
-    let drinks = useSelector((state) => state.drinks.drinksArray);
+    const drinks = useSelector((state) => state.drinks.drinksArray);
     const drink = drinks.find((drink) => drink.id == id);
     console.log("drink is: ", drink)
 
-  let user = useSelector((state) => state.user.user);
-  let dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
   const teaRanges = useSelector((state) => state.drinks.teaRanges);
   const teaRangeNames = teaRanges.map((teaRange) => teaRange.name);
   const formControlLabels = teaRangeNames.map((teaRangeName) => (
@@ -54,7 +53,7 @@ function EditDrink() {
   const [iceLevel, setIceLevel] = useState(drink.ice_level);
   const [sweetnessLevel, setSweetnessLevel] = useState(drink.sweetness_level);
   const [drinkName, setDrinkName] = useState(drink.name);
-  let flavourMenuItems = flavours.map((flavour) => <MenuItem key={flavour} value={flavour}>{flavour}</MenuItem>)
+  const flavourMenuItems = flavours.map((flavour) => <MenuItem key={flavour} value={flavour}>{flavour}</MenuItem>)
 
   const errors = useSelector((state) => state.drinks.errors);
 
@@ -74,11 +73,18 @@ function EditDrink() {
 
   const handleUpdateDrinkSubmit = (e) => {
     e.preventDefault();
-    console.log("handleCreateDrinkSubmit was clicked");
-    console.log("Drink details before post: ", {drinkName, teaRange, flavour, iceLevel, sweetnessLevel});
+    console.log("handleUpdateDrinkSubmit was clicked");
     const teaRangeObj = teaRanges.find((val) => val.name === teaRange)
-    console.log(teaRangeObj)
-    const newDrink = {name: drinkName, tea_range_id: teaRangeObj.id, flavour, ice_level: iceLevel, sweetness_level: sweetnessLevel};
+    //console.log(teaRangeObj)
+    const updatedDrink = {id: drink.id, name: drinkName, tea_range_id: teaRangeObj.id, flavour, ice_level: iceLevel, sweetness_level: sweetnessLevel};
+    console.log("Drink details before patch: ", updatedDrink);
+
+    try {
+        dispatch(updateDrink(updatedDrink))
+    }
+    catch(err){
+        console.warn(err)
+    }
   };
 
 

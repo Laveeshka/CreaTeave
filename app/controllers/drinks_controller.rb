@@ -28,8 +28,10 @@ class DrinksController < ApplicationController
 
     def update
         drink = Drink.find_by(id: params[:id])
-        updatedDrink = drink.update!(drink_params)
-        render json: updatedDrink, status: :accepted
+        tea_range = TeaRange.find_by(id: params[:tea_range_id])
+
+        drink.update!(tea_range: tea_range, name: params[:name], flavour: params[:flavour], ice_level: params[:ice_level], sweetness_level: params[:sweetness_level])
+        render json: drink, status: :ok
     end
 
     private
