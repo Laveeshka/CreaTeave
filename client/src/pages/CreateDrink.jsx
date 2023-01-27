@@ -16,7 +16,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import Slider from "@mui/material/Slider";
-import TextField from "@mui/material/TextField";
+import { TextField } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -30,8 +30,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function CreateDrink() {
-  let user = useSelector((state) => state.user.user);
-  let dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const teaRanges = useSelector((state) => state.drinks.teaRanges);
   const teaRangeNames = teaRanges.map((teaRange) => teaRange.name);
@@ -50,7 +50,7 @@ function CreateDrink() {
   const [flavour, setFlavour] = useState("");
   const [iceLevel, setIceLevel] = useState(100);
   const [sweetnessLevel, setSweetnessLevel] = useState(100);
-  const [drinkName, setDrinkName] = useState("");
+  const [drinkName, setDrinkName] = useState("test");
   let flavourMenuItems = flavours.map((flavour) => (
     <MenuItem key={flavour} value={flavour}>
       {flavour}
@@ -134,13 +134,11 @@ function CreateDrink() {
       <Grid
         component="form"
         container
-        justifyContent="center"
-        alignItems="baseline"
         spacing={2}
         onSubmit={handleCreateDrinkSubmit}
       >
         <Grid item xs={12} md={6}>
-          <Card sx={{ backgroundColor: theme.palette.secondary.dark }}>
+          <Card sx={{backgroundColor: theme.palette.secondary.dark}} >
             <CardContent>
               <Typography variant="subtitle2" component="span">
                 Step 1{")"}{" "}
@@ -155,10 +153,8 @@ function CreateDrink() {
                 <RadioGroup
                   name="controlled-tea-range-radio-group"
                   value={teaRange}
-                  onChange={(e) => {
-                    setTeaRange(e.target.value);
-                    setFlavours(flavoursObj[`${e.target.value}`]);
-                  }}
+                  onChange={(e) => {setTeaRange(e.target.value)
+                setFlavours(flavoursObj[`${e.target.value}`])}}
                 >
                   {formControlLabels}
                 </RadioGroup>
@@ -167,7 +163,7 @@ function CreateDrink() {
           </Card>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Card sx={{ backgroundColor: theme.palette.secondary.dark }}>
+          <Card sx={{backgroundColor: theme.palette.secondary.dark}} >
             <CardContent>
               <Typography variant="subtitle2" component="span">
                 Step 2{")"}{" "}
@@ -179,12 +175,7 @@ function CreateDrink() {
             </CardContent>
             <CardActions>
               <FormControl fullWidth variant="filled">
-                <InputLabel
-                  id="demo-simple-select-label"
-                  sx={{ color: theme.palette.secondary.main }}
-                >
-                  Flavour
-                </InputLabel>
+                <InputLabel id="demo-simple-select-label" sx={{color: theme.palette.secondary.main}}>Flavour</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
@@ -199,9 +190,9 @@ function CreateDrink() {
           </Card>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Card sx={{ backgroundColor: theme.palette.secondary.dark }}>
+          <Card sx={{backgroundColor: theme.palette.secondary.dark}}>
             <CardContent>
-              <Typography variant="subtitle2" component="span">
+            <Typography variant="subtitle2" component="span">
                 Step 3{")"}{" "}
               </Typography>
               <Typography variant="subtitle1" component="span">
@@ -209,23 +200,24 @@ function CreateDrink() {
                 Choose ice level
               </Typography>
             </CardContent>
-            <CardActions>
-              <FormControl sx={{ width: "80%", margin: "auto" }}>
-                <Slider
-                  value={iceLevel}
-                  onChange={(e, newVal) => setIceLevel(newVal)}
-                  valueLabelFormat={iceValueLabelFormat}
-                  step={null}
-                  marks={iceLevelMarks}
-                />
-              </FormControl>
+            <CardActions >
+                <FormControl sx={{width: "80%", margin: "auto"}}>
+                  <div><Slider 
+                        value={iceLevel}
+                        onChange={(e, newVal) => setIceLevel(newVal)}
+                        valueLabelFormat={iceValueLabelFormat}
+                        step={null}
+                        marks={iceLevelMarks}
+                    /></div>
+                
+                </FormControl>            
             </CardActions>
           </Card>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Card sx={{ backgroundColor: theme.palette.secondary.dark }}>
+          <Card sx={{backgroundColor: theme.palette.secondary.dark}}>
             <CardContent>
-              <Typography variant="subtitle2" component="span">
+            <Typography variant="subtitle2" component="span">
                 Step 4{")"}{" "}
               </Typography>
               <Typography variant="subtitle1" component="span">
@@ -234,22 +226,23 @@ function CreateDrink() {
               </Typography>
             </CardContent>
             <CardActions>
-              <FormControl sx={{ width: "80%", margin: "auto" }}>
-                <Slider
-                  value={sweetnessLevel}
-                  onChange={(e, newVal) => setSweetnessLevel(newVal)}
-                  valueLabelFormat={sweetnessValueLabelFormat}
-                  step={null}
-                  marks={sweetnessLevelMarks}
-                />
-              </FormControl>
+            <FormControl sx={{width: "80%", margin: "auto"}}>
+              <div><Slider 
+                        value={sweetnessLevel}
+                        onChange={(e, newVal) => setSweetnessLevel(newVal)}
+                        valueLabelFormat={sweetnessValueLabelFormat}
+                        step={null}
+                        marks={sweetnessLevelMarks}
+                    /></div>
+                
+                </FormControl>    
             </CardActions>
           </Card>
         </Grid>
         <Grid item xs={12}>
-          <Card sx={{ backgroundColor: theme.palette.secondary.dark }}>
+          <Card sx={{backgroundColor: theme.palette.secondary.dark}}>
             <CardContent>
-              <Typography variant="subtitle2" component="span">
+            <Typography variant="subtitle2" component="span">
                 Step 5{")"}{" "}
               </Typography>
               <Typography variant="subtitle1" component="span">
@@ -258,26 +251,25 @@ function CreateDrink() {
               </Typography>
             </CardContent>
             <CardActions>
-              <TextField
+                <TextField 
                 fullWidth
                 required
                 id="filled-name"
                 label="Name"
                 value={drinkName}
-                onChange={(e) => setDrinkName(e.target.value)}
-              />
+                onChange={(e) => setDrinkName(e.currentTarget.value)}
+                />
             </CardActions>
           </Card>
         </Grid>
-        <Grid container item justifyContent="center" xs={12}>
-          <StyledButton 
-            item
+        <Grid item xs={12}>
+          <StyledButton
             type="submit"
             name="create-drink-btn"
             variant="contained"
-            size="large"
+            sx={{ width: "100%" }}
           >
-            Create drink
+            Create Drink
           </StyledButton>
         </Grid>
       </Grid>

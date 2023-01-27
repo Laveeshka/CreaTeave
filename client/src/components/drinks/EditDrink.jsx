@@ -104,7 +104,7 @@ function EditDrink() {
 
 
   return (
-    <Box>
+    <Box sx={{zIndex: 2, position: "relative", margin: "2rem 1rem"}}>
       <Typography align="center">Time to start createa-ng!</Typography>
       <List>{errorListItems}</List>
       <Grid

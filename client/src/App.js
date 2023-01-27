@@ -65,7 +65,7 @@ function App() {
     const fetchUserResult = fetchUser().catch(console.error);
     const fetchToppingsResult = fetchToppings().catch(console.error);
     const fetchTeaRangesResult = fetchTeaRanges().catch(console.error);
-  }, []);
+  }, [dispatch]);
 
   
 

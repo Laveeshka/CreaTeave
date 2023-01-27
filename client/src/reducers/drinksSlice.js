@@ -189,9 +189,9 @@ const drinksSlice = createSlice({
         },
         [deleteDrink.fulfilled](state, action){
             console.log("action payload is: ", action.payload)
-            const index = state.drinksArray.findIndex((drink) => drink === action.payload.id);
-            state.drinksArray.splice(index, 1);
-            //state.drinksArray = state.drinksArray.filter(drink => drink !== action.payload);
+            // const index = state.drinksArray.findIndex((drink) => drink === action.payload.id);
+            // state.drinksArray.splice(index, 1);
+            state.drinksArray = state.drinksArray.filter(drink => drink.id != action.payload.id);
             state.status = "idle";
         },
         [deleteDrink.rejected](state, action){

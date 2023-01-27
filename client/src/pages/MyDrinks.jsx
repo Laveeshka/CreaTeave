@@ -15,14 +15,14 @@ import DrinksList from "../components/drinks/DrinksList";
 
 function MyDrinks() {
   let user = useSelector((state) => state.user.user);
-  let dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchDrinks = async () => {
       const result = await dispatch(getDrinks());
     };
     const fetchDrinksResult = fetchDrinks().catch(console.error);
-  }, []);
+  }, [dispatch]);
 
   let drinks = useSelector((state) => state.drinks.drinksArray);
   console.log("User drinks are: ", drinks);
