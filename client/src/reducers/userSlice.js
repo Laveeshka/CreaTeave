@@ -122,6 +122,7 @@ const userSlice = createSlice({
       } else {
         state.user = action.payload;
         state.signupErrors = [];
+        state.errors = [];
       }
       state.status = "idle";
     },

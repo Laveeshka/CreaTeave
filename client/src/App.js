@@ -12,17 +12,45 @@ import { useEffect } from "react";
 import { theme } from "./mui/theme";
 import { fetchMe } from "./reducers/userSlice";
 import { getToppings, getTeaRanges } from "./reducers/drinksSlice";
-import { useDispatch, useSelector } from "react-redux";
-import CircularProgress from '@mui/material/CircularProgress';
+import { useDispatch } from "react-redux";
 import EditDrink from "./components/drinks/EditDrink";
 import DrinksList from "./components/drinks/DrinksList";
+import styled from "@emotion/styled";
+import  waves  from "./assets/wavesOpacity.svg"
+import { Box } from "@mui/material";
 function App() {
+
+  const StyledContainer = styled(Container)(({ theme }) => ({
+    padding: 2,
+    height: "100%",
+    margin: "auto",
+  })
+  );
+
+  const StyledBox = styled(Box)(({ theme }) => ({
+    backgroundColor: theme.palette.secondary.main, 
+    height: "100vh", 
+    overflow:"scroll",
+    '&::after': {
+      position: "absolute",
+      bottom: 0,
+      left: 0,
+      width: "100%",
+      height: "15vh",
+      overflow: "hidden",
+      transform: "rotate(180deg)",
+      content: '""',
+      backgroundImage: `url(${waves})`,
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "bottom",
+      backgroundSize: "cover",
+      
+    }
+  })
+  )
 
   const dispatch = useDispatch();
 
-  //check whether the user is logged in for authorization
-  //while checking, set a circular progress
-  //if user is not logged in, set re-direct the user to the login page
   useEffect(() => {
     const fetchUser = async () => {
       const result = await dispatch(fetchMe());
@@ -34,21 +62,9 @@ function App() {
       const result = await dispatch(getTeaRanges());
     }
 
-    const fetchUserResult = fetchUser()
-      .catch(console.error);
-
-      const fetchToppingsResult = fetchToppings().catch(console.error);
-      const fetchTeaRangesResult = fetchTeaRanges().catch(console.error);
-
-      
-
-      
-    // try {
-    //   dispatch(fetchMe());
-    // }
-    // catch(err){
-    //   console.log(err);
-    // }
+    const fetchUserResult = fetchUser().catch(console.error);
+    const fetchToppingsResult = fetchToppings().catch(console.error);
+    const fetchTeaRangesResult = fetchTeaRanges().catch(console.error);
   }, []);
 
   
@@ -69,15 +85,15 @@ function App() {
   ]);
 
   return (
-    <div className="App" style={{ backgroundColor: theme.palette.secondary.main, height: "100vh", overflow:"scroll" }}>
+    <StyledBox className="App">
       <ResponsiveAppBar />
-      <Container
+      <StyledContainer
         fixed
-        sx={{ p: 2, height: "100%" }}
       >
         {routes}
-      </Container>
-    </div>
+      </StyledContainer>
+     
+    </StyledBox>
   );
 }
 

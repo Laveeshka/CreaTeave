@@ -15,6 +15,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../reducers/userSlice";
+import styled from "@emotion/styled";
 
 function ResponsiveAppBar() {
 
@@ -43,6 +44,8 @@ function ResponsiveAppBar() {
     }
   }
 
+  //styles
+
   const activeStyle = {
     textDecoration: "none", 
     color: theme.palette.secondary.dark
@@ -53,8 +56,25 @@ function ResponsiveAppBar() {
     color: theme.palette.text.primary
   }
 
+  const StyledAppBar = styled(AppBar)(({ theme }) => ({
+    borderBottomRightRadius: "1.5rem",
+    position: "relative",
+    '&::before': {
+      content: '""',
+      position: "absolute",
+      backgroundColor: "transparent",
+      top: "100%",
+      left: 0,
+      height: "3rem",
+      width: "1.5rem",
+      borderTopLeftRadius: "1.5rem",
+      boxShadow: `0 -1.5rem 0 0 ${theme.palette.primary.main}`,
+    }
+  })
+  );
+
   return (
-    <AppBar position="static">
+    <StyledAppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <LocalDrinkIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -181,7 +201,7 @@ function ResponsiveAppBar() {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </StyledAppBar>
   );
 }
 export default ResponsiveAppBar;
