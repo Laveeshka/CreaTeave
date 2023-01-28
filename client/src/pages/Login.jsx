@@ -1,4 +1,3 @@
-import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -6,6 +5,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../reducers/userSlice";
+import { StyledStack } from "../styled/StyledStack";
+import { StyledButton } from "../styled/StyledButton";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -39,10 +40,11 @@ function Login() {
   };
 
   return (
-    <Stack component="form" onSubmit={handleSubmit}>
-      <Typography align="center" variant="subtitle1">
+    <StyledStack alignItems="center" justifyContent="flex-start" spacing={4} component="form" onSubmit={handleSubmit}>
+      <Typography align="center" variant="h5" color="primary.main">
         Log Back To CreaTeave
       </Typography>
+      <StyledStack sx={{ width: "100%" }} spacing={2}>
       <TextField
         required
         variant="outlined"
@@ -61,9 +63,11 @@ function Login() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button variant="contained" type="submit">
+      </StyledStack>
+     
+      <StyledButton variant="contained" type="submit">
         Log In
-      </Button>
+      </StyledButton>
       <Button
         variant="text"
         sx={{ textDecoration: "underline" }}
@@ -76,7 +80,7 @@ function Login() {
           {errors}
         </Typography>
       ) : null}
-    </Stack>
+    </StyledStack>
   );
 }
 

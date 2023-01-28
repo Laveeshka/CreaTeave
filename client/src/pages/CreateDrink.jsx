@@ -27,6 +27,9 @@ import { iceLevelMarks } from "../constants/iceLevelMarks";
 import { sweetnessLevelMarks } from "../constants/sweetnessLevelMarks";
 import { postDrink } from "../reducers/drinksSlice";
 import { ToastContainer, toast } from "react-toastify";
+import { StyledStack } from "../styled/StyledStack";
+import { StyledButton } from "../styled/StyledButton";
+import { StyledSlider } from "../styled/StyledSlider";
 import "react-toastify/dist/ReactToastify.css";
 
 function CreateDrink() {
@@ -112,24 +115,9 @@ function CreateDrink() {
     }
   };
 
-  //component styles here
-  const StyledStack = styled(Stack)(({ theme }) => ({
-    zIndex: 2,
-    position: "relative",
-    margin: "2rem 1rem",
-  }));
-
-  const StyledButton = styled(Button)(({ theme }) => ({
-    color: theme.palette.secondary.dark,
-    backgroundColor: theme.palette.primary,
-    borderRadius: "2rem",
-    padding: "0.75rem 2rem",
-    width: "max-content",
-  }));
-
   return (
     <StyledStack>
-      <Typography align="center">Time to start createa-ng!</Typography>
+      <Typography align="center" variant="h5" color="primary.main">Time to start createa-ng!</Typography>
       <List>{errorListItems}</List>
       <Grid
         component="form"
@@ -138,7 +126,7 @@ function CreateDrink() {
         onSubmit={handleCreateDrinkSubmit}
       >
         <Grid item xs={12} md={6}>
-          <Card sx={{backgroundColor: theme.palette.secondary.dark}} >
+          <Card sx={{backgroundColor: theme.palette.secondary.dark, color: "secondary.light"}} >
             <CardContent>
               <Typography variant="subtitle2" component="span">
                 Step 1{")"}{" "}
@@ -163,7 +151,7 @@ function CreateDrink() {
           </Card>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Card sx={{backgroundColor: theme.palette.secondary.dark}} >
+          <Card sx={{backgroundColor: theme.palette.secondary.dark, color: "secondary.light"}} >
             <CardContent>
               <Typography variant="subtitle2" component="span">
                 Step 2{")"}{" "}
@@ -190,7 +178,7 @@ function CreateDrink() {
           </Card>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Card sx={{backgroundColor: theme.palette.secondary.dark}}>
+          <Card sx={{backgroundColor: theme.palette.secondary.dark, color: "secondary.light"}}>
             <CardContent>
             <Typography variant="subtitle2" component="span">
                 Step 3{")"}{" "}
@@ -202,20 +190,20 @@ function CreateDrink() {
             </CardContent>
             <CardActions >
                 <FormControl sx={{width: "80%", margin: "auto"}}>
-                  <div><Slider 
+                  <StyledSlider
                         value={iceLevel}
                         onChange={(e, newVal) => setIceLevel(newVal)}
                         valueLabelFormat={iceValueLabelFormat}
                         step={null}
                         marks={iceLevelMarks}
-                    /></div>
+                    />
                 
                 </FormControl>            
             </CardActions>
           </Card>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Card sx={{backgroundColor: theme.palette.secondary.dark}}>
+          <Card sx={{backgroundColor: theme.palette.secondary.dark, color: "secondary.light"}}>
             <CardContent>
             <Typography variant="subtitle2" component="span">
                 Step 4{")"}{" "}
@@ -227,20 +215,20 @@ function CreateDrink() {
             </CardContent>
             <CardActions>
             <FormControl sx={{width: "80%", margin: "auto"}}>
-              <div><Slider 
+              <StyledSlider 
                         value={sweetnessLevel}
                         onChange={(e, newVal) => setSweetnessLevel(newVal)}
                         valueLabelFormat={sweetnessValueLabelFormat}
                         step={null}
                         marks={sweetnessLevelMarks}
-                    /></div>
+                    />
                 
                 </FormControl>    
             </CardActions>
           </Card>
         </Grid>
         <Grid item xs={12}>
-          <Card sx={{backgroundColor: theme.palette.secondary.dark}}>
+          <Card sx={{backgroundColor: theme.palette.secondary.dark, color: "secondary.light"}}>
             <CardContent>
             <Typography variant="subtitle2" component="span">
                 Step 5{")"}{" "}
@@ -262,8 +250,9 @@ function CreateDrink() {
             </CardActions>
           </Card>
         </Grid>
-        <Grid item xs={12}>
+        <Grid container justifyContent="center" item xs={12}>
           <StyledButton
+            item={+true}
             type="submit"
             name="create-drink-btn"
             variant="contained"

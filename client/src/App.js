@@ -18,36 +18,10 @@ import DrinksList from "./components/drinks/DrinksList";
 import styled from "@emotion/styled";
 import  waves  from "./assets/wavesOpacity.svg"
 import { Box } from "@mui/material";
+import { StyledAppBox } from "./styled/StyledAppBox";
+import { StyledAppContainer } from "./styled/StyledAppContainer";
+
 function App() {
-
-  const StyledContainer = styled(Container)(({ theme }) => ({
-    padding: 2,
-    height: "100%",
-    margin: "auto",
-  })
-  );
-
-  const StyledBox = styled(Box)(({ theme }) => ({
-    backgroundColor: theme.palette.secondary.main, 
-    height: "100vh", 
-    overflow:"scroll",
-    '&::after': {
-      position: "absolute",
-      bottom: 0,
-      left: 0,
-      width: "100%",
-      height: "15vh",
-      overflow: "hidden",
-      transform: "rotate(180deg)",
-      content: '""',
-      backgroundImage: `url(${waves})`,
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: "bottom",
-      backgroundSize: "cover",
-      
-    }
-  })
-  )
 
   const dispatch = useDispatch();
 
@@ -85,15 +59,15 @@ function App() {
   ]);
 
   return (
-    <StyledBox className="App">
+    <StyledAppBox className="App">
       <ResponsiveAppBar />
-      <StyledContainer
+      <StyledAppContainer
         fixed
       >
         {routes}
-      </StyledContainer>
+      </StyledAppContainer>
      
-    </StyledBox>
+    </StyledAppBox>
   );
 }
 
