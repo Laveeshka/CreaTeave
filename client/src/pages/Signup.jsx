@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { signupUser } from "../reducers/userSlice";
+import { StyledStack } from "../styled/StyledStack";
+import { StyledButton } from "../styled/StyledButton";
+import { StyledTextField } from "../styled/StyledTextField"
 
 function Signup() {
   const [username, setUsername] = useState("");
@@ -41,19 +44,15 @@ function Signup() {
       }
     } catch (err) {}
 
-    // dispatch(signupUser(credentials));
-    //     setUsername("");
-    //     setPassword("");
-    //     setPasswordConfirmation("");
-    //     navigate("/home");
   };
 
   return (
-    <Stack component="form" onSubmit={handleSubmitSignUp}>
-      <Typography align="center" variant="subtitle1">
+    <StyledStack alignItems="center" justifyContent="flex-start" spacing={4} component="form" onSubmit={handleSubmitSignUp}>
+      <Typography align="center" variant="h5" color="primary.main">
         Create an account with CreaTeave
       </Typography>
-      <TextField
+      <StyledStack sx={{ width: "100%" }} spacing={2}>
+      <StyledTextField
         required
         variant="outlined"
         id="username"
@@ -61,7 +60,7 @@ function Signup() {
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
-      <TextField
+      <StyledTextField
         required
         variant="outlined"
         id="password-input"
@@ -70,7 +69,7 @@ function Signup() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <TextField
+       <StyledTextField
         required
         variant="outlined"
         id="password-confirmation-input"
@@ -79,11 +78,13 @@ function Signup() {
         value={passwordConfirmation}
         onChange={(e) => setPasswordConfirmation(e.target.value)}
       />
-      <Button variant="contained" type="submit">
+      </StyledStack>
+
+      <StyledButton variant="contained" type="submit">
         Sign Up
-      </Button>
+      </StyledButton>
       <List>{errorListItems}</List>
-    </Stack>
+    </StyledStack>
   );
 }
 

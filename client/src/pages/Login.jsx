@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../reducers/userSlice";
 import { StyledStack } from "../styled/StyledStack";
 import { StyledButton } from "../styled/StyledButton";
+import { StyledTextField } from "../styled/StyledTextField"
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -45,7 +46,7 @@ function Login() {
         Log Back To CreaTeave
       </Typography>
       <StyledStack sx={{ width: "100%" }} spacing={2}>
-      <TextField
+      <StyledTextField
         required
         variant="outlined"
         id="username"
@@ -53,7 +54,7 @@ function Login() {
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
-      <TextField
+      <StyledTextField
         required
         variant="outlined"
         id="password-input"
