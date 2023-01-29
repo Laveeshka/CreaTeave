@@ -30,6 +30,10 @@ import { ToastContainer, toast } from "react-toastify";
 import { StyledStack } from "../styled/StyledStack";
 import { StyledButton } from "../styled/StyledButton";
 import { StyledSlider } from "../styled/StyledSlider";
+import { StyledInputLabel } from "../styled/StyledSelect";
+import { StyledSelect } from "../styled/StyledSelect";
+import { StyledMenuItem } from "../styled/StyledSelect";
+import { StyledTextField } from "../styled/StyledTextField";
 import "react-toastify/dist/ReactToastify.css";
 
 function CreateDrink() {
@@ -53,11 +57,11 @@ function CreateDrink() {
   const [flavour, setFlavour] = useState("");
   const [iceLevel, setIceLevel] = useState(100);
   const [sweetnessLevel, setSweetnessLevel] = useState(100);
-  const [drinkName, setDrinkName] = useState("test");
+  const [drinkName, setDrinkName] = useState("");
   let flavourMenuItems = flavours.map((flavour) => (
-    <MenuItem key={flavour} value={flavour}>
+    <StyledMenuItem key={flavour} value={flavour}>
       {flavour}
-    </MenuItem>
+    </StyledMenuItem>
   ));
 
   const errors = useSelector((state) => state.drinks.errors);
@@ -128,10 +132,10 @@ function CreateDrink() {
         <Grid item xs={12} md={6}>
           <Card sx={{backgroundColor: theme.palette.secondary.dark, color: "secondary.light"}} >
             <CardContent>
-              <Typography variant="subtitle2" component="span">
+              <Typography variant="subtitle1" component="span" color="primary.main">
                 Step 1{")"}{" "}
               </Typography>
-              <Typography variant="subtitle1" component="span">
+              <Typography variant="h6" component="span">
                 {" "}
                 Choose type
               </Typography>
@@ -153,18 +157,18 @@ function CreateDrink() {
         <Grid item xs={12} md={6}>
           <Card sx={{backgroundColor: theme.palette.secondary.dark, color: "secondary.light"}} >
             <CardContent>
-              <Typography variant="subtitle2" component="span">
+              <Typography variant="subtitle1" component="span" color="primary.main">
                 Step 2{")"}{" "}
               </Typography>
-              <Typography variant="subtitle1" component="span">
+              <Typography variant="h6" component="span">
                 {" "}
                 Choose flavour
               </Typography>
             </CardContent>
             <CardActions>
               <FormControl fullWidth variant="filled">
-                <InputLabel id="demo-simple-select-label" sx={{color: theme.palette.secondary.main}}>Flavour</InputLabel>
-                <Select
+                <StyledInputLabel id="demo-simple-select-label" >Flavour</StyledInputLabel>
+                <StyledSelect
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={flavour}
@@ -172,7 +176,7 @@ function CreateDrink() {
                   onChange={(e) => setFlavour(e.target.value)}
                 >
                   {flavourMenuItems}
-                </Select>
+                </StyledSelect>
               </FormControl>
             </CardActions>
           </Card>
@@ -180,10 +184,10 @@ function CreateDrink() {
         <Grid item xs={12} md={6}>
           <Card sx={{backgroundColor: theme.palette.secondary.dark, color: "secondary.light"}}>
             <CardContent>
-            <Typography variant="subtitle2" component="span">
+            <Typography variant="subtitle1" component="span" color="primary.main">
                 Step 3{")"}{" "}
               </Typography>
-              <Typography variant="subtitle1" component="span">
+              <Typography variant="h6" component="span">
                 {" "}
                 Choose ice level
               </Typography>
@@ -205,10 +209,10 @@ function CreateDrink() {
         <Grid item xs={12} md={6}>
           <Card sx={{backgroundColor: theme.palette.secondary.dark, color: "secondary.light"}}>
             <CardContent>
-            <Typography variant="subtitle2" component="span">
+            <Typography variant="subtitle1" component="span" color="primary.main">
                 Step 4{")"}{" "}
               </Typography>
-              <Typography variant="subtitle1" component="span">
+              <Typography variant="h6" component="span" >
                 {" "}
                 Choose sweetness level
               </Typography>
@@ -230,17 +234,18 @@ function CreateDrink() {
         <Grid item xs={12}>
           <Card sx={{backgroundColor: theme.palette.secondary.dark, color: "secondary.light"}}>
             <CardContent>
-            <Typography variant="subtitle2" component="span">
+            <Typography variant="subtitle1" component="span" color="primary.main">
                 Step 5{")"}{" "}
               </Typography>
-              <Typography variant="subtitle1" component="span">
+              <Typography variant="h6" component="span">
                 {" "}
                 Name your drink
               </Typography>
             </CardContent>
             <CardActions>
-                <TextField 
+                <StyledTextField 
                 fullWidth
+                color="secondary"
                 required
                 id="filled-name"
                 label="Name"
