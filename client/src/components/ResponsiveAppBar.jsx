@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../reducers/userSlice";
 import styled from "@emotion/styled";
+import { StyledAppBarButton } from "../styled/StyledButton";
+import { StyledAppBar } from "../styled/StyledAppBar";
 
 function ResponsiveAppBar() {
 
@@ -48,30 +50,13 @@ function ResponsiveAppBar() {
 
   const activeStyle = {
     textDecoration: "none", 
-    color: theme.palette.secondary.dark
+    color: theme.palette.secondary.main
   };
 
   const inactiveStyle = {
     textDecoration: "none", 
-    color: theme.palette.text.primary
+    color: theme.palette.primary.dark
   }
-
-  const StyledAppBar = styled(AppBar)(({ theme }) => ({
-    borderBottomRightRadius: "1.5rem",
-    position: "relative",
-    '&::before': {
-      content: '""',
-      position: "absolute",
-      backgroundColor: "transparent",
-      top: "100%",
-      left: 0,
-      height: "3rem",
-      width: "1.5rem",
-      borderTopLeftRadius: "1.5rem",
-      boxShadow: `0 -1.5rem 0 0 ${theme.palette.primary.main}`,
-    }
-  })
-  );
 
   return (
     <StyledAppBar position="static">
@@ -88,8 +73,8 @@ function ResponsiveAppBar() {
               display: { xs: "none", md: "flex" },
               fontFamily: "roboto",
               fontWeight: 700,
-              letterSpacing: ".3rem",
               color: "inherit",
+              letterSpacing: ".3rem",
               textDecoration: "none",
             }}
           >
@@ -197,7 +182,7 @@ function ResponsiveAppBar() {
             </Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Button variant="contained" onClick={handleLogInClick} id="log-in">{ user ? "Log out" : "Log in" }</Button>
+            <StyledAppBarButton variant="contained" onClick={handleLogInClick} id="log-in">{ user ? "Log out" : "Log in" }</StyledAppBarButton>
           </Box>
         </Toolbar>
       </Container>
