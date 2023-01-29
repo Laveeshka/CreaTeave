@@ -12,3 +12,16 @@ export const iceLevelMarks = [
         label: "Normal ice"
     }
 ]
+
+export const iceLevelDescription = (iceLevel) => {
+    switch(iceLevel) {
+        case 0:
+            return "No ice ╳"
+        case 50:
+            return "Half ice 🧊"
+        case 100:
+            return "Normal ice 🧊🧊"
+        default:
+            return "ice"
+    }
+}

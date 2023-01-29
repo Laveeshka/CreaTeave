@@ -18,6 +18,7 @@ export const theme = createTheme({
           main: '#bb82b6',
           light: '#e6cfe6',
           dark: '#8b5d8c',
+          darkWithOpacity: "rgba(139, 93, 140, 0.4)"
         },
         divider: '#4e342e',
         success: {

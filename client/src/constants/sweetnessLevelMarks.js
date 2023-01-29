@@ -20,3 +20,20 @@ export const sweetnessLevelMarks = [
         label: "Normal sugar"
     }
 ]
+
+export const sweetnessLevelDescription = (sweetnessLevel) => {
+    switch(sweetnessLevel) {
+        case 0:
+            return "No sugar ╳"
+        case 25:
+                return "Little sugar 🍬"
+        case 50:
+            return "Half sugar 🍬🍬"
+        case 75:
+            return "Less sugar 🍬🍬🍬"
+        case 100:
+            return "Normal sugar 🍬🍬🍬🍬"
+        default:
+            return "sugar"
+    }
+}
